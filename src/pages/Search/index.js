@@ -4,9 +4,10 @@ import Footer from '../../components/Footer'
 import Menu from '../../components/Menu'
 import { Container } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
-import { search, searchByName } from '../../redux/action/search'
+import { search, searchByName, getUserTransfer } from '../../redux/action/search'
 import { Link } from 'react-router-dom'
 import SearchIcon from '../../icons/search.svg'
+import { imageURI } from '../../utils'
 import './Search.css'
 
 const Search = props => {
@@ -51,11 +52,11 @@ const Search = props => {
                         {data.map((item, index) => {
                             if(item.phone) {
                                 return (
-                                    <Link to={{
-                                        pathname: `/transfer`
+                                    <Link onClick={() => dispatch(getUserTransfer(token, item.phone))} to={{
+                                        pathname: `/transfer/input`
                                     }} key={index} className="items label">
                                         <div className="avatar mr-4">
-                                            <img style={{borderRadius: '10px'}} width="70px" height="70px" src={item.photo} alt=""/>
+                                            <img style={{borderRadius: '10px'}} width="70px" height="70px" src={imageURI + item.photo} alt=""/>
                                         </div>
                                         <div className="info">
                                             <p className="name text bold">{item.name}</p>

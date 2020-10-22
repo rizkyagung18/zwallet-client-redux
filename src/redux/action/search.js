@@ -1,7 +1,6 @@
 import Axios from 'axios'
 import { SEARCH, SEARCH_BY_NAME, GET_USER_TRANSFER } from '../type/search'
-
-const URI = 'http://localhost:8000/api/v1'
+import { URI } from '../../utils'
 
 export const search = token => async dispatch => {
     const res = await Axios.get(`${URI}/users/search`, {

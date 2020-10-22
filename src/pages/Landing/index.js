@@ -21,7 +21,7 @@ const Landing = props => {
                         <Desc color="#FFFFFF">
                             We bring you a mobile app for banking problems that oftenly wasting much of your times.
                         </Desc>
-                        <Link to="/auth/register">
+                        <Link to="/register">
                             <ButtonLanding className="mb-3" width="173px">
                                 Try It Free
                             </ButtonLanding>

@@ -1,7 +1,6 @@
 import Axios from 'axios'
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, EMAIL_ACTIVE, PASSWORD_ACTIVE, EMAIL_NOT_ACTIVE, PASSWORD_NOT_ACTIVE, EYE_CLICK } from '../type/login'
-
-const URI = 'http://localhost:8000/api/v1'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT } from '../type/login'
+import { URI } from '../../utils'
 
 export const loginRequest = () => {
     return {
@@ -36,35 +35,5 @@ export const login = data => async dispatch => {
 export const logout = () => {
     return {
         type: LOGOUT
-    }
-}
-
-export const emailActive = () => {
-    return {
-        type: EMAIL_ACTIVE
-    }
-}
-
-export const passwordActive = () => {
-    return {
-        type: PASSWORD_ACTIVE
-    }
-}
-
-export const emailNotActive = () => {
-    return {
-        type: EMAIL_NOT_ACTIVE
-    }
-}
-
-export const passwordNotActive = () => {
-    return {
-        type: PASSWORD_NOT_ACTIVE
-    }
-}
-
-export const eyeActive = () => {
-    return {
-        type: EYE_CLICK
     }
 }

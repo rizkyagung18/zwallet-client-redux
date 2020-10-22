@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, EMAIL_ACTIVE, PASSWORD_ACTIVE, EMAIL_NOT_ACTIVE, PASSWORD_NOT_ACTIVE, EYE_CLICK } from '../type/login'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT } from '../type/login'
 
 const initialState = {
     token: '',
@@ -42,31 +42,6 @@ export default (state = initialState, action) => {
                     version: -1
                 }
             }
-        case EMAIL_ACTIVE:
-            return {
-                ...state,
-                isEmailActive: true
-            }
-        case PASSWORD_ACTIVE:
-            return {
-                ...state,
-                isPasswordActive: true
-            }
-            case EMAIL_NOT_ACTIVE:
-                return {
-                    ...state,
-                    isEmailActive: false
-                }
-            case PASSWORD_NOT_ACTIVE:
-                return {
-                    ...state,
-                    isPasswordActive: false
-                }
-            case EYE_CLICK:
-                return {
-                    ...state,
-                    isEyeClick: !state.isEyeClick
-                }
         default:
             return state
     }

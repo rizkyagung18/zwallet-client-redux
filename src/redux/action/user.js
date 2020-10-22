@@ -1,7 +1,6 @@
 import Axios from 'axios'
-import { GET_USER, GET_HISTORY, EDIT_USER_REQUEST, EDIT_USER_SUCCESS, EDIT_USER_FAILED, USER_LOGOUT } from '../type/user'
-
-const URI = 'http://localhost:8000/api/v1'
+import { GET_USER, EDIT_USER_REQUEST, EDIT_USER_SUCCESS, EDIT_USER_FAILED, CHECK_PIN, PIN_CHECKED, USER_LOGOUT } from '../type/user'
+import { URI } from '../../utils'
 
 export const getUser = token => async dispatch => {
     const res = await Axios.get(`${URI}/users/login`, {
@@ -11,16 +10,6 @@ export const getUser = token => async dispatch => {
     })
 
     dispatch({ type: GET_USER, payload: res.data })
-}
-
-export const getHistory = token => async dispatch => {
-    const res = await Axios.get(`${URI}/transfer/history`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
-
-    dispatch({ type: GET_HISTORY, payload: res.data })
 }
 
 export const editUserRequest = () => {
@@ -56,6 +45,26 @@ export const editUser = (data, token) => async dispatch => {
     } catch (error) {
         dispatch(editUserFailed(error.message))
     }
+}
+
+export const pinChecked = () => {
+    return {
+        type: PIN_CHECKED
+    }
+}
+
+export const checkPin = (pin, token) => async dispatch => {
+    const res = await Axios.post(`${URI}/users/pin`, pin, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+
+    if(res.data === 'OK') {
+        dispatch(pinChecked())
+    }
+
+    dispatch({ type: CHECK_PIN, payload: res.data })
 }
 
 export const userLogout = () => {

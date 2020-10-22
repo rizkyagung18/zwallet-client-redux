@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import AuthLogo from '../../components/AuthLogo'
 import { formFilled } from '../../redux/action/register'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
+import Person from '../../icons/person.svg'
+import PersonActive from '../../icons/person-active.svg'
+import Mail from '../../icons/mail.svg'
+import MailActive from '../../icons/mail-active.svg'
+import Lock from '../../icons/lock.svg'
+import LockActive from '../../icons/lock-active.svg'
+import Eye from '../../icons/eye-crossed.svg'
 
 const Register = props => {
+    const [nameActive, setNameActive] = useState(false)
+    const [emailActive, setEmailActive] = useState(false)
+    const [passwordActive, setPasswordActive] = useState(false)
+    const [eyeClick, setEyeClick] = useState(false)
     const { register, handleSubmit } = useForm()
     const { isFormFilled } = useSelector(state => state.register)
     const dispatch = useDispatch()
@@ -44,17 +55,17 @@ const Register = props => {
                     </div>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="users input mb-5">
-                            <img src="" alt="person" className="person"/>
-                            <input ref={register} name="name" type="text" placeholder="Enter your username" autoComplete="off" />
+                            <img src={nameActive ? PersonActive : Person} alt="person" className="person"/>
+                            <input onFocus={() => setNameActive(true)} onBlur={() => setNameActive(false)}  ref={register} name="name" type="text" placeholder="Enter your username" autoComplete="off" />
                         </div>
                         <div className="email input mb-5">
-                            <img src="" alt="mail" className="mail"/>
-                            <input ref={register} name="email" type="email" placeholder="Enter your e-mail" autoComplete="off" />
+                            <img src={emailActive ? MailActive : Mail} alt="mail" className="mail"/>
+                            <input onFocus={() => setEmailActive(true)} onBlur={() => setEmailActive(false)} ref={register} name="email" type="email" placeholder="Enter your e-mail" autoComplete="off" />
                         </div>
                         <div className="password input mb-5">
-                            <img src="" alt="lock" className="lock" />
-                            <input ref={register} name="password" placeholder="Enter your password" autoComplete="off" />
-                            <img src="" className="eye-auth" alt="eye" />
+                            <img src={passwordActive ? LockActive : Lock} alt="lock" className="lock" />
+                            <input onFocus={() => setPasswordActive(true)} onBlur={() => setPasswordActive(false)} ref={register} name="password" type={eyeClick ? "text" : "password"} placeholder="Enter your password" autoComplete="off" />
+                            <img onClick={() => setEyeClick(!eyeClick)} src={Eye} className="eye-auth" alt="eye" />
                         </div>
                         <div className="button">
                             <button className="auth-primary-btn" type="submit">Sign Up</button>

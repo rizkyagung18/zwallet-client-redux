@@ -1,9 +1,13 @@
-import { GET_USER, EDIT_USER_REQUEST, EDIT_USER_SUCCESS, EDIT_USER_FAILED, USER_LOGOUT } from '../type/user'
+import { GET_USER, EDIT_USER_REQUEST, EDIT_USER_SUCCESS, EDIT_USER_FAILED, CHECK_PIN, PIN_CHECKED, USER_LOGOUT } from '../type/user'
 
 const initialState = {
     data: [],
     loading: false,
-    messageEdit: ''
+    isEditSuccess: false,
+    isEditFailed: false,
+    messageEdit: '',
+    pinCheck: '',
+    checkedPin: false
 }
 
 export default (state = initialState, action) => {
@@ -23,13 +27,27 @@ export default (state = initialState, action) => {
                 ...state,
                 loading: false,
                 messageEdit: action.payload.message,
-                data: action.payload.data
+                data: action.payload.data,
+                isEditSuccess: true,
+                isEditFailed: false
             }
         case EDIT_USER_FAILED:
             return {
                 ...state,
                 loading: false,
-                messageEdit: action.payload
+                messageEdit: action.payload,
+                isEditSuccess: false,
+                isEditFailed: true
+            }
+        case CHECK_PIN:
+            return {
+                ...state,
+                pinCheck: action.payload
+            }
+        case PIN_CHECKED:
+            return {
+                ...state,
+                checkedPin: true
             }
         case USER_LOGOUT:
             return {
@@ -37,6 +55,10 @@ export default (state = initialState, action) => {
                 data: []
             }
         default:
-            return state
+            return {
+                ...state,
+                pinCheck: '',
+                checkedPin: false
+            }
     }
 }

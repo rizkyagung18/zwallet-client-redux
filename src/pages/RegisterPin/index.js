@@ -20,7 +20,9 @@ const RegisterPin = props => {
 
     const onSubmit = (dataPin) => {
         dispatch(pinFilled({ pin: Object.values(dataPin).join('')}))
-        dispatch(signup(data))     
+        if(data.pin) {
+            dispatch(signup(data))
+        }
     }
     
 

@@ -1,10 +1,9 @@
 import axios from 'axios'
 import { TOPUP } from '../type/topup'
-
-const URL = 'http://localhost:8000/api/v1'
+import { URI } from '../../utils'
 
 export const topup = (token) => async dispatch => {
-    const res = await axios.get(`${URL}/topup`, {
+    const res = await axios.get(`${URI}/topup`, {
         headers: {
             Authorization: `Bearer ${token}`
         }

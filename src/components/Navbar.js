@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Nav, Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import bell from '../icons/bell.svg'
@@ -8,9 +8,26 @@ import { useSelector, useDispatch } from 'react-redux'
 import { imageURI } from '../utils'
 
 const Bar = props => {
+    const [sidebarActive, setSidebarActive] = useState(false)
     const dispatch = useDispatch()
     const { data } = useSelector(state => state.user)
-    console.log(data)
+    
+    const splitPhone = (phone) => {
+        if(phone) {
+            const newPhone = phone.split('').map((item, index) => {
+                if(index === 2 || index === 6) {
+                    return item + '-'
+                } else {
+                    return item
+                }
+            })
+    
+            return newPhone
+        } else {
+            return ""
+        }
+    }
+
     return (
         <Navbar className="nav" bg="white" expand="lg">
             <Container fluid="md" className="py-5">
@@ -21,20 +38,20 @@ const Bar = props => {
                     </div>
                     <div className="mr-4">
                         <div className="text bold">{data.name}</div>
-                        <div className="small">+62 {data.phone}</div>
+                        <div className="small">+62 {splitPhone(data.phone)}</div>
                     </div>
                     <div className="mr-4 icon">
                         <img id="bell" src={bell} alt="bell" />
                     </div>
                 </Nav.Item>
-                <div className="sidenav">
+                <div className={`sidenav ${sidebarActive ? 'active' : ''}`}>
                     <div className="d-flex justify-content-center flex-column top">
                         <div className="image mr-4">
-                            <img src={data.photo} style={{borderRadius: '10px'}} width="70px" height="70px" alt="" />
+                            <img src={imageURI + data.photo} style={{borderRadius: '10px'}} width="70px" height="70px" alt="" />
                         </div>
                         <div className="info d-flex flex-column mb-5">
                             <span className="bold text">{data.name}</span>
-                            <span className="med">+62 {data.phone}</span>
+                            <span className="med">+62 {splitPhone(data.phone)}</span>
                         </div>
                     </div>
                     <hr/>
@@ -67,7 +84,7 @@ const Bar = props => {
                         </div>
                     </div>
                 </div>
-                <div className="hamburger">
+                <div onClick={() => setSidebarActive(!sidebarActive)} className="hamburger">
                     <div className="bg-primary"></div>
                     <div className="bg-primary"></div>
                     <div className="bg-primary"></div>

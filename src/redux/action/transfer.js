@@ -1,7 +1,6 @@
 import Axios from 'axios'
 import { FORM_FILLED, TRANSFER_REQUEST, TRANSFER_SUCCESS, TRANSFER_FAILED } from '../type/transfer'
-
-const URI = 'http://localhost:8000/api/v1'
+import { URI } from '../../utils'
 
 export const formFilled = data => {
     return {
@@ -30,11 +29,20 @@ export const transferFailed = data => {
     }
 }
 
-export const transfer = data => async dispatch => {
+export const transfer = (token, data, balance) => async dispatch => {
     dispatch(transferRequest())
     try {
-        const res = await Axios.post(`${URI}/transfer`)
+        console.log(token, data)
+        const res = await Axios.post(`${URI}/transfer`, data, {
+            params: {
+                balance_receiver: balance
+            },
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        dispatch(transferSuccess(res.data.message))
     } catch (error) {
-        
+        dispatch(transferFailed(error.response.data))
     }
 }

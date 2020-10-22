@@ -1,7 +1,6 @@
 import Axios from 'axios'
 import { FORM_FILLED, PIN_FILLED, REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILED } from '../type/register'
-
-const URI = 'http://localhost:8000/api/v1'
+import { URI } from '../../utils'
 
 export const formFilled = data => {
     return {

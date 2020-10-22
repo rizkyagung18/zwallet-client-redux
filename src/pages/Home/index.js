@@ -1,18 +1,28 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import Menu from '../../components/Menu'
 import { Container } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { getHistory } from '../../redux/action/history'
 import { Link } from 'react-router-dom'
 import Transfer from '../../icons/balance/arrow-up.svg'
 import Topup from '../../icons/balance/plus.svg'
 import Income from '../../icons/arrow-down.svg'
 import Expense from '../../icons/arrow-up.svg'
 import './Home.css'
+import { imageURI } from '../../utils'
 
 const Home = props => {
+    const dispatch = useDispatch()
     const { data } = useSelector(state => state.user)
+    const { dataAll } = useSelector(state => state.history)
+    const { token } = useSelector(state => state.auth)
+
+    useEffect(() => {
+        dispatch(getHistory(token))
+    }, [])
+
     const splitPhone = (phone) => {
         if(phone) {
             const newPhone = phone.split('').map((item, index) => {
@@ -28,6 +38,25 @@ const Home = props => {
             return ""
         }
     }
+
+    const handleGraph = (stats) => {
+        let income = 0;
+        let expense = 0;
+        dataAll.forEach(item => {
+            if(item.receiver === data.name) {
+                income += item.amount
+            } else {
+                expense += item.amount
+            }
+        })
+
+        if(stats === 'income') {
+            return income
+        } else {
+            return expense
+        }
+    }
+
     return (
         <Fragment>
             <Navbar />
@@ -61,12 +90,12 @@ const Home = props => {
                                 <div className="left">
                                     <img src={Income} alt=""/>
                                     <p className="small">Income</p>
-                                    <p className="text bold">Rp</p>
+                                    <p className="text bold">Rp{handleGraph('income')}</p>
                                 </div>
                                 <div className="right">
                                     <img src={Expense} alt=""/>
                                     <p className="small">Expense</p>
-                                    <p className="text bold">Rp</p>
+                                    <p className="text bold">Rp{handleGraph('expense')}</p>
                                 </div>
                             </div>
                             <div className="bottom">
@@ -76,9 +105,28 @@ const Home = props => {
                         <div className="history">
                             <div className="desc">
                                 <span className="text bold desc-title">Transaction History</span>
-                                <p className="small primary">See all</p>
+                                <Link to="/dashboard/history" className="small primary">See all</Link>
                             </div>
-                            
+                            {dataAll.map((item, index) => {
+                                if(index <= 3) {
+                                    return (
+                                        <div key={index} className="items">
+                                            <div className="left">
+                                                <div className="avatar">
+                                                    <img src={`${imageURI}${item.receiver === data.name ? item.photo_sender : item.photo}`} width="56px" height="56px" alt="" />
+                                                </div>
+                                                <div className="info">
+                                                    <p className="bold history-text">{item.receiver === data.name ? item.sender : item.receiver}</p>
+                                                    <p className="small">Transfer</p>
+                                                </div>
+                                            </div>
+                                            <div className="money">
+                                            <p className={`bold ${item.receiver === data.name ? 'text-success' : 'text-danger'}`}>{item.receiver === data.name ? '+' : '-'}{item.amount}</p>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                            })}
                         </div>
                     </div>
                 </div>

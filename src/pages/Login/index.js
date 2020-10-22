@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import AuthLogo from '../../components/AuthLogo'
 import { useForm } from 'react-hook-form'
-import { login, emailActive, passwordActive, emailNotActive, passwordNotActive, eyeActive } from '../../redux/action/login'
+import { login } from '../../redux/action/login'
 import { useDispatch, useSelector } from 'react-redux'
 import Mail from '../../icons/mail.svg'
 import MailActive from '../../icons/mail-active.svg'
@@ -11,9 +11,12 @@ import LockActive from '../../icons/lock-active.svg'
 import Eye from '../../icons/eye-crossed.svg'
 
 const Login = props => {
+    const [emailActive, setEmailActive] = useState(false)
+    const [passwordActive, setPasswordActive] = useState(false)
+    const [eyeClick, setEyeClick] = useState(false)
     const { register, handleSubmit } = useForm()
     const dispatch = useDispatch()
-    const { isEmailActive, isPasswordActive, error, isEyeClick } = useSelector(state => state.auth)
+    const { error } = useSelector(state => state.auth)
     
     const style = {
         right: {
@@ -40,13 +43,13 @@ const Login = props => {
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="email input mb-5">
-                        <img src={isEmailActive ? MailActive : Mail} alt="mail" className="mail"/>
-                        <input onFocus={() => dispatch(emailActive())} onBlur={() => dispatch(emailNotActive())} ref={register} name="email" type="email" placeholder="Enter your e-mail" autoComplete="off" />
+                        <img src={emailActive ? MailActive : Mail} alt="mail" className="mail"/>
+                        <input onFocus={() => setEmailActive(true)} onBlur={() => setEmailActive(false)} ref={register} name="email" type="email" placeholder="Enter your e-mail" autoComplete="off" />
                     </div>
                     <div className="password input">
-                        <img src={isPasswordActive ? LockActive : Lock} alt="lock" className="lock" />
-                        <input onFocus={() => dispatch(passwordActive())} onBlur={() => dispatch(passwordNotActive())} ref={register} name="password" type={isEyeClick ? "text" : "password"} placeholder="Enter your password" autoComplete="off" />
-                        <img onClick={() => dispatch(eyeActive())} src={Eye} className="eye-auth" alt="" />
+                        <img src={passwordActive ? LockActive : Lock} alt="lock" className="lock" />
+                        <input onFocus={() => setPasswordActive(true)} onBlur={() => setPasswordActive(false)} ref={register} name="password" type={eyeClick ? "text" : "password"} placeholder="Enter your password" autoComplete="off" />
+                        <img onClick={() => setEyeClick(!eyeClick)} src={Eye} className="eye-auth" alt="" />
                     </div>
                     <div className="forgot d-flex justify-content-end font-weight-bold">
                         <Link to="/forgot">Forgot password?</Link>
