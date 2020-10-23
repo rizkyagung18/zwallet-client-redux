@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 const NotFound = props => {
     return (
         <Fragment>
-            <Navbar />
             <Container className="d-flex mt-5">
                 <Jumbotron style={{ height: '60vh', borderRadius: '25px'}} className="d-flex flex-column align-items-center justify-content-center w-100">
                     <h1>Something's Wrong here...</h1>

@@ -47,7 +47,7 @@ const App = (props) => {
           <PrivateRoute exact path="/profile/password" component={Password} />
           <PrivateRoute exact path="/profile/pin" component={Pin} />
           <PrivateRoute exact path="/profile/pin/new" component={NewPin} />
-          <PrivateRoute component={NotFound} />
+          <PublicRoute component={NotFound} />
         </Switch>
       </Router>
     </PersistGate>
