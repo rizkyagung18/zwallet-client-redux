@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import { Container } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
-import { editUser, checkPin } from '../../redux/action/user'
+import { checkPin } from '../../redux/action/user'
 import { useForm } from 'react-hook-form'
 import Footer from '../../components/Footer'
 import Menu from '../../components/Menu'
@@ -10,11 +10,10 @@ import { Redirect } from 'react-router'
 
 const Pin = props => {
     const [buttonActive, setButtonActive] = useState(false)
-    const [buttonNewActive, setButtonNewActive] = useState(false)
     const dispatch = useDispatch()
     const { register, handleSubmit } = useForm()
     const { token } = useSelector(state => state.auth)
-    const { messageEdit, pinCheck, checkedPin } = useSelector(state => state.user)
+    const { pinCheck, checkedPin } = useSelector(state => state.user)
 
     const style = {
         buttonPrimary: {
