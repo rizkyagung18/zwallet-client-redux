@@ -190,6 +190,12 @@
     }
 }
 
+@media screen and (max-width: 768px) {
+    .auth-left {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 576px) {
     .auth .right div {
         width: 100% !important;
