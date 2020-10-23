@@ -31,7 +31,7 @@ const Login = props => {
     }
 
     return (
-        <div className="d-flex">
+        <div className="d-flex flex-column flex-lg-row">
             <AuthLogo />
             <div id="right" style={style.right} className="right">
                 <div className="bold big start">Start Accessing Banking Needs

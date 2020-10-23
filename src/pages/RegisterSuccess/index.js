@@ -13,7 +13,7 @@ const RegisterSuccess = props => {
     }   
 
     return (
-        <div className="d-flex">
+        <div className="d-flex flex-column flex-lg-row">
             <AuthLogo />
             <div style={style.right} className="right">
                 <div className="status bg-success">

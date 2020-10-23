@@ -30,7 +30,7 @@ const RegisterPin = props => {
         return <Redirect to="/register/success" />
     } else {
         return (
-            <div className="d-flex">
+            <div className="d-flex flex-column flex-lg-row">
                 <AuthLogo />
                 <div style={style.right} className="right">
                     <div className="bold big start">Start Accessing Banking Needs
