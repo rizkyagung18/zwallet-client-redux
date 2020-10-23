@@ -34,7 +34,7 @@ const Login = props => {
         <div className="d-flex flex-column flex-lg-row">
             <AuthLogo />
             <div id="right" style={style.right} className="right">
-                <div className="bold big start">Start Accessing Banking Needs
+                <div className="bold big start ">Start Accessing Banking Needs
                     With All Devices and All Platforms
                     With 30.000+ Users
                 </div>

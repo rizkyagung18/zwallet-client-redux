@@ -5,12 +5,12 @@ const AuthLogo = props => {
         left: {
             backgroundImage: `url("https://i.ibb.co/6vzkGP4/bg-login.png")`,
             flex: 1.25,
-            padding: "50px 0 50px 200px"
+            padding: "50px 0 50px 200px",
         }
     }
 
     return (
-        <div style={style.left} className="d-none d-md-block">
+        <div style={style.left} className="d-none d-md-flex auth-left">
             <div className="logo text-white">Zwallet</div>
             <div className="image">
                 <img src="https://i.ibb.co/x8c2kFq/phone.png" alt="" />
