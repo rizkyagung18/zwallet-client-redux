@@ -10,7 +10,7 @@ const AuthLogo = props => {
     }
 
     return (
-        <div style={style.left} className="d-none d-md-flex auth-left">
+        <div style={style.left} className="d-none auth-left">
             <div className="logo text-white">Zwallet</div>
             <div className="image">
                 <img src="https://i.ibb.co/x8c2kFq/phone.png" alt="" />
